@@ -69,7 +69,7 @@ public class Sort
 				
 		int[] list = generateRandomIntArray();
 
-		//Bubble Sort Example.
+		System.out.println("\n************* Bubble Sort Algorithm ********************");
 		System.out.println("Original Random array: ");
 		printArray(list);
 		Instant start = Instant.now();         
@@ -85,8 +85,8 @@ public class Sort
 		//Generate a new list.
 		list = generateRandomIntArray();
 
-		//Recursive Merge Sort Example
-		System.out.println("\n\nOriginal Random array: ");
+		System.out.println("\n************ Recursive Merge Sort Algorithm *****************");
+		System.out.println("Original Random array: ");
 		printArray(list);
 		start = Instant.now();         
 		MergeSort.sort(list, list.length);
@@ -102,8 +102,8 @@ public class Sort
 		//Generate a new list.
 		list = generateRandomIntArray();
 
-		//Recursive Quick Sort Example
-		System.out.println("\n\nOriginal Random array: ");
+		System.out.println("\n*************** Quick Sort Algorithm ******************");
+		System.out.println("Original Random array: ");
 		printArray(list);
 		start = Instant.now();         
 		QuickSort.sort(list, 0, list.length - 1);
@@ -116,16 +116,61 @@ public class Sort
 
 		System.out.println("\nIt Took " + formatDuration(quickSortDuration) + 
 				" to do the Recursive Quick Sort");
+
+		//Generate a new list.
+		list = generateRandomIntArray();
+		System.out.println("\n**************** Bucket Sort Algorithm ******************");
+		System.out.println("Original Random array: ");
+
+		printArray(list);
+		start = Instant.now();         
+		BucketSort.sort(list);
+		stop = Instant.now();
+		System.out.println("\nSorted array (Bucket Sort): ");
+		printArray(list);
 		
-		System.out.println("\n\nWhich sorting was the fastest!!!!  And the winner was:");
+		Duration bucketSortDuration = Duration.between(start, stop);
+		sortMap.put("BucketSort", bucketSortDuration);
+		System.out.println("\nIt Took " + formatDuration(bucketSortDuration) + 
+				" to do the Bucket Sort");
 		
+		list = generateRandomIntArray();
+		System.out.println("\n\n************** Radix Sort Algorithm **************");
+		System.out.println("Original Random array: ");
+
+		printArray(list);
+		start = Instant.now();         
+		RadixSort.sort(list);
+		stop = Instant.now();
+		System.out.println("\nSorted array (Radix Sort): ");
+		printArray(list);
+		
+		Duration RadixSortDuration = Duration.between(start, stop);
+		sortMap.put("RadixSort", RadixSortDuration);
+		System.out.println("\nIt Took " + formatDuration(RadixSortDuration) + 
+				" to do the Radix Sort");
+		
+		System.out.println("\n\n************** Fastest Algorithm **************");
+		//Figure out which is the fasts.
 		//Print before we sorted the duration runs.
 		// sortMap.forEach((key,value)-> System.out.println(key + "	" + value));
-
+		System.out.println("\n\nWhich sorting was the fastest!!!!  And the winner was:");
+		
 		List<Map.Entry<String, Duration>> sortedList = new ArrayList<>(sortMap.entrySet());
 
 		sortedList.sort(Map.Entry.comparingByValue());
 
-		sortedList.forEach((duration)->System.out.println(duration.getKey() + "	" + formatDuration(duration.getValue())));
+		sortedList.forEach((duration)->System.out.println(duration.getKey() + "	" + formatDuration(duration.getValue())));		
+		
+		System.out.println("\n\n************** Count Sort Algorithm **************");
+		int[] input = {6, 4, 3, 2, 1, 4, 3, 6, 6, 2, 4, 3, 4};
+
+		System.out.println("Original input array: ");
+		printArray(input);
+		
+		CountingSort.sort(input, 6);
+		
+		System.out.println("\nOriginal input array: ");
+		printArray(input);
 	}
 }
